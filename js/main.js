@@ -24,6 +24,9 @@ let startBtn = document.getElementById('start'),
 
     let money, time;
 
+expensesBtn.disabled = true;
+optionalExpensesBtn.disabled = true;
+countBudgetBtn.disabled = true;
 
 startBtn.addEventListener('click' , function() {
     time = prompt ("Введите дату в формате YYYY-MM-DD", "");
@@ -38,6 +41,10 @@ startBtn.addEventListener('click' , function() {
     yearValue.value = new Date(Date.parse(time)).getFullYear();
     monthValue.value = new Date(Date.parse(time)).getMonth() + 1;
     dayValue.value = new Date(Date.parse(time)).getDate();
+
+    optionalExpensesBtn.disabled = false;
+    countBudgetBtn.disabled = false;
+    expensesBtn.disabled = false;
 });
 
 expensesBtn.addEventListener('click' , function() {
@@ -72,7 +79,7 @@ countBudgetBtn.addEventListener('click' , function() {
 
     if (appData.budget != undefined) {
 
-        appData.moneyPerDay = (appData.budget / 30).toFixed();
+        appData.moneyPerDay = ((appData.budget - +expensesValue.textContent) / 30).toFixed();
         dayBudgetValue.textContent = appData.moneyPerDay;
     
         if (appData.moneyPerDay < 100) {
